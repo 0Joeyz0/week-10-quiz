@@ -1,7 +1,7 @@
-var song;
-var fft;
-var particles = [];
-var img;
+let song;
+let fft;
+let particles = [];
+let img;
 
 function preload() {
     song = loadSound("audio/sample-visualisation.mp3")
@@ -43,7 +43,7 @@ if (getAudioContext().state !== 'running') {
     image(img, 0, 0, width + 100, height + 100)
     pop()
 
-    var alpha = map(amp, 0, 255, 100, 150)
+    let alpha = map(amp, 0, 255, 100, 150)
     fill(20, alpha)
     noStroke()
     rect(0, 0, width, height)
@@ -53,24 +53,24 @@ if (getAudioContext().state !== 'running') {
     strokeWeight(3)
     noFill()
 
-    var wave = fft.waveform()
+    let wave = fft.waveform()
 
-    for(var t = -1; t <= 1; t += 2) {
+    for(let t = -1; t <= 1; t += 2) {
       beginShape()
-      for(var i = 0; i <= 180; i += 0.5) {
-          var index = floor(map(i,0,180,0,wave.length-1))
-          var r = map(wave[index], -1, 1, 90, 350)
-          var x = r * sin(i) * t
-          var y = r * cos(i)
+      for(let i = 0; i <= 180; i += 0.5) {
+          let index = floor(map(i,0,180,0,wave.length-1))
+          let r = map(wave[index], -1, 1, 90, 350)
+          let x = r * sin(i) * t
+          let y = r * cos(i)
           vertex(x,y)
       }
       endShape()
     }
 
-    var p = new Particle()
+    let p = new Particle()
     particles.push(p)
 
-    for(var i = particles.length - 1; i >= 0; i--) {
+    for(let i = particles.length - 1; i >= 0; i--) {
       if(!particles[i].edges()) {
           particles[i].update(amp > 230)
           particles[i].show()
